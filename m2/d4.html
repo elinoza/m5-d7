@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<!--
+    WELCOME TO THE STRIVE TEAM GENERATOR!
+    The app is pretty straight forward, use Bootstrap to add the following features:
+    - The user can add a list of names
+    - The user can set the number of teams
+    - Every time the user clicks on the "assign" button, a random name is placed in a team and removed from the list
+    - Each team should be inside a "column"
+    - [EXTRA] Create a button to remove an user from a team, putting him back in the main list
+    - [EXTRA] Create a button to reset the state of the app
+-->
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <style></style>
+  </head>
+  <body>
+    <div class="container fluid">
+      <div class="row">
+        <div class="col-6">
+          <form>
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1"
+                >Please add the participants</label
+              >
+              <textarea
+                
+                class="form-control"
+                id="people"
+                rows="3"
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlInput1"></label>
+              <input
+                
+                type="text"
+                class="form-control"
+                id="numberTeam"
+                placeholder="Please type the team number"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary" onclick="addMembers()">Submit</button>
+          </form>
+        </div>
+        <div class="col 6 bg-dark">
+            
+          <ol class="text-white" id="membersList"></ol>
+         
+          <button type="submit" class="btn btn-primary" onclick="setTheGroups()">Assign</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container fluid">
+      <div  class="row teamClass" id= "teams">
+         
+       
+      </div>
+    </div>
+    <script>
+
+
+    
+    const teamsRow= document.querySelector("#teams");    
+    let memberArray = [];
+    
+     
+    
+     
+    
+    const addMembers = function () {
+        let values1 = document.querySelector("#people").value;        
+        let newArray = values1.split(" ");
+        let teamNumber=document.querySelector('#numberTeam').value
+
+   
+            for (let i = 0; i < newArray.length; i++) {
+                let newLi = document.createElement("li");
+                membersList.appendChild(newLi);
+                newLi.innerText = newArray[i];
+                 memberArray.push(newArray[i]) 
+            }         
+       
+            for (let i = 0; i <teamNumber; i++) {
+                let newCol = document.createElement("div");
+                 newCol.className= 'col bg-danger ml-3 mr-3 mt-5 mb-5';
+                 teamsRow.appendChild(newCol);
+                let newh3=document.createElement("h6");
+                 newh3.className='text-center';
+                newh3.innerText=i+1
+                newCol.appendChild(newh3)
+            }
+              
+        
+    };
+
+
+    
+     
+
+    let clicks=0
+
+    const setTheGroups= function() {
+        
+        let persoNindex = Math.floor(Math.random() * memberArray.length);
+        let newUl=document.createElement('ul')
+        let teamLi= document.createElement('li')
+        teamLi.innerHTML=memberArray[persoNindex]
+        let teamBox=document.querySelectorAll('h6')[clicks]
+        teamBox.appendChild(newUl)
+        newUl.appendChild(teamLi)
+        delete memberArray[persoNindex]
+
+        clicks += 1; 
+        
+        if (clicks === document.querySelectorAll('h6').length) {clicks=0}
+
+      }
+
+      const goBack= function() {
+        clicks -1}
+
+   
+
+
+    
+    </script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
