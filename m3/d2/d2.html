@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <h1>Start from your previous Spotify Exercise.</h1>
+
+    <p>
+      The goal of this exercise is to fetch data from the API instead of having
+      them "wired up" in the page.
+    </p>
+
+    <p>Generate automatically 3 lists based on the "search API" response</p>
+    <div class="container">
+    <ul>
+      <li >
+          <div class="row row-cols-3 " id="eminem">
+
+          </div>
+      
+      </li>
+      <li>es.: https://deezerdevs-deezer.p.rapidapi.com/search?q=metallica</li>
+      <li>es.: https://deezerdevs-deezer.p.rapidapi.com/search?q=behemoth</li>
+    </ul>
+    </div>
+
+    <h3>
+      Load them during page load, and create the collections based on the API
+      response.
+    </h3>
+
+    <h4>
+      Make the central part of the page scrollable both horizontally and
+      vertically
+    </h4>
+
+    <h4>
+      Add a "List albums" button. When pressed, he should create and display a
+      list of albums on the page
+    </h4>
+
+    <h4>
+      Add a "Count Unique" button. When pressed, he should log the number of
+      unique albums on the page
+    </h4>
+    <script>
+      fetch("https://rapidapi.p.rapidapi.com/search?q=eminem", {
+        method: "GET",
+        headers: {
+          "x-rapidapi-key":
+            "9686a97369mshc255201739db656p1f676cjsn793030cdeca7",
+          "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+        },
+      })
+        .then((response) => {return response.json()})
+        .then((body) => {
+          console.log("parsed body",body);
+                    for (let i=0; i<body.data.length; i++){
+                        let col=document.createElement('div');
+                        col.className="col";
+                        let card=document.createElement('div');
+                        card.innerHTML=` <div class="card" >
+                            <img src="${body.data[i].album.cover_medium}" class="card-img-top" alt="..."> 
+                             <div class="card-body">    <h5 class="card-title"> "${body.data[i].title_short}" </h5>
+                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the cards content.</p> 
+                             <a href="#" class="btn btn-primary">Go somewhere</a>  
+                            </div>
+                            </div> `
+                            
+                        col.appendChild(card)
+                        document.getElementById('eminem').appendChild(col)
+                                                    
+                    }
+          
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    </script>
+  </body>
+</html>
