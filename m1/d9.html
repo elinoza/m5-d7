@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BINGO BOARD</title>
+    <style>
+    #NumbersTable {
+        background-color: #6e5e48;
+        color: white;
+        width: 100%;
+        margin-bottom: 20px;
+        border: 6px solid #e2dbdb;
+        border-radius: 9px;
+      }
+
+    .numbers{
+
+        display: inline-block;
+        width: 5%;
+        text-align: center;
+        min-height: 50px;
+        border: 1px solid transparent;
+        font-size: ;
+    }
+
+    .numbers h3 {
+
+            font-weight: 300;
+        font-size: 26px;
+        margin-top: calc(100px / 2 - 22px)
+    }
+
+    .buttonType {
+        background-color:beige;
+        text-align: center;
+        color:brown    
+     }
+
+
+
+
+    </style>
+
+
+</head>
+
+<body>
+    <h1>>BINGO</h1>
+    <div id="NumbersTable" > </div> 
+    <input class= "buttonType" id="button1" type="button"  value="Random Number" onclick=randomize() />  
+
+
+    
+<script>
+    const NumbersTable= document.querySelector("#NumbersTable")
+     
+        window.onload = function () {
+           for (let i = 1; i < 77; i++) {
+       const cellsDiv = document.createElement("div");
+       cellsDiv.className = "numbers";        
+       NumbersTable.appendChild(cellsDiv);
+       const h3 = document.createElement("h3");
+       cellsDiv.appendChild(h3);
+       h3.innerText=i
+           }
+
+       
+       
+        function randomize() {        
+         const randomNumber = Math.floor((Math.random() * 75)+1);  
+         const comparingOne = document.querySelectorAll(".numbers");      
+        comparingOne[randomNumber].style.backgroundColor='yellow'
+
+        }
+
+    </script>
+  
+    
+    
+</body>
+</html>
+
