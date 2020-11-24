@@ -9,6 +9,7 @@ import {
 	Image,
 	Modal,
 } from "react-bootstrap"
+import { Link, withRouter } from 'react-router-dom'
 
 import Gallery from "./GalleryS"
 
@@ -62,8 +63,14 @@ class MyNavBar extends React.Component {
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
 					<Navbar.Collapse id="basic-navbar-nav">
 						<Nav className="mr-auto">
-							<Nav.Link href="#home">Home</Nav.Link>
-							<Nav.Link href="#link">Link</Nav.Link>
+						<Link to="/">
+						<div className={this. props.location.pathname === '/' ? 'nav-link active' : 'nav-link'}>Home</div>
+						</Link>
+						<Link to="/details"> 
+						<div className= {this.props.location.pathname === 'details'? 'nav-link active': 'nav-link'}>Details</div>
+						</Link>
+							
+							
 							<NavDropdown title="Dropdown" id="basic-nav-dropdown">
 								<NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
 								<NavDropdown.Item href="#action/3.2">
@@ -105,4 +112,4 @@ class MyNavBar extends React.Component {
 	}
 }
 
-export default MyNavBar
+export default withRouter(MyNavBar)
