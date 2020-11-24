@@ -1,5 +1,6 @@
 import React from 'react'
 import { Badge, Card, Col, Container, Row ,Spinner} from 'react-bootstrap'
+import CommentsList from './CommentsList'
 
 
 
@@ -102,7 +103,7 @@ class MovieDetails extends React.Component {
                                 </Card>
                             </Col>
                         </Row>
-                        {/* <MovieComments selectedmovie={this.state.movie} /> */}
+                        <CommentsList movie={this.state.movie} />
                     </div> 
                      
                 

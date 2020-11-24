@@ -58,6 +58,7 @@ class Gallery extends React.Component {
                 md={4}
                 lg={3}
                 key={index}
+                onClick={() => this.props.history.push('/details/' + movie.imdbID)}
               >
                 <Card.Img
                   variant="top"

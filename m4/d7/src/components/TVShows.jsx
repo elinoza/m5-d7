@@ -1,5 +1,6 @@
 import React from 'react'
 import {  Card, Col, Container, Row,Spinner,Carousel} from 'react-bootstrap'
+import CommentsList from './CommentsList'
 
 
 
@@ -82,6 +83,7 @@ class TVShows extends React.Component {
                
               ))}
             </Row>
+            <CommentsList/>
           </Container>
            
         )

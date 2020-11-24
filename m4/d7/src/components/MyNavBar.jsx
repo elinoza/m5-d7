@@ -91,7 +91,7 @@ class MyNavBar extends React.Component {
 				</Navbar>
 				<Modal show={this.state.show} onHide={this.handleToggle}>
 					<Modal.Header closeButton>
-						<Modal.Title>Search reuslt for : {this.state.query}</Modal.Title>
+						<Modal.Title>Search result for : {this.state.query}</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
 						<Gallery movies={this.state.movies} />

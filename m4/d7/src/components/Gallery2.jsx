@@ -49,7 +49,7 @@ class Gallery2 extends React.Component {
             <Row key={index}>
               <Card
                 className="d-flex justify-content-center mt-2 mb-5"
-                style={{ width:"28rem"}}
+                style={{ width:"28rem height: 20em "}}
                 md={4}
                 lg={3}
                 onClick={() => this.props.history.push('/details/' + movie.imdbID)}
@@ -57,17 +57,16 @@ class Gallery2 extends React.Component {
               >
                 <Card.Img
                   variant="top"
-                  style={{ objectFit: "cover", width: 300, height: 400 }}
+                  style={{ objectFit: "cover" , height: 400 }}
                   src={movie.Poster}
                   className="mx-auto"
                 />
                 <Card.Body>
                   <Card.Title>{movie.Title}</Card.Title>
                   <Card.Text>{movie.Type}</Card.Text>
+                  <Card.Text className="text-muted">{movie.Year}</Card.Text>
                 </Card.Body>
-                <Card.Footer>
-                  <small className="text-muted">{movie.Year}</small>
-                </Card.Footer>
+              
               </Card>
             </Row>
           ))}
