@@ -19,7 +19,7 @@ class CommentsList extends React.Component {
       
        
         try {
-            let response = await fetch('  https://striveschool-api.herokuapp.com/api/comments/' + this.props.movie.elementId,
+            let response = await fetch('  https://striveschool-api.herokuapp.com/api/comments/' + this.props.movie.ImdbID,
                 {
                     method: 'GET',
                 
