@@ -18,9 +18,7 @@ class App extends React.Component {
       <MyNavBar/>
 
 
-      <Route path ="/" exact render={(
-              props // props are history, location, match
-            ) => <Gallery search="" type="" {...props}/> } />
+      
       <Route path ="/" exact render={(
               props // props are history, location, match
             ) => <Gallery2 search="" type="" {...props}/> } />

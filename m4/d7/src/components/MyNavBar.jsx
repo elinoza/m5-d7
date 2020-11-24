@@ -107,6 +107,9 @@ class MyNavBar extends React.Component {
 					</Modal.Body>
 					<Modal.Footer></Modal.Footer>
 				</Modal>
+
+
+			
 			</>
 		)
 	}

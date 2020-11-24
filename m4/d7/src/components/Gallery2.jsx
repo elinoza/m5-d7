@@ -20,12 +20,15 @@ class Gallery2 extends React.Component {
           this.state.type
       );
       let movies = await response.json();
+      console.log(movies)
       this.setState({ movies: movies.Search, loading: false });
     } catch (error) {
       console.log(error);
       this.setState({ loading: false });
     }
   };
+
+
   render() {
     return (
       <Container fluid>
@@ -38,12 +41,15 @@ class Gallery2 extends React.Component {
         <h1 style={{ marginLeft: 85 }}>{this.state.search}</h1>
         <Carousel itemsToShow={5}>
           {this.state.movies.map((movie, index) => (
-            <Row>
+           
+           
+            <Row> key={index}
               <Card
                 className="d-flex justify-content-center mt-2 mb-5"
                 md={4}
                 lg={3}
-                key={index}
+                onClick={() => this.props.history.push('/details/' + movie.imdbID)}
+                
               >
                 <Card.Img
                   variant="top"
