@@ -1,10 +1,12 @@
 import React from "react";
 import SingleBook from "./SingleBook";
+import CommentArea from "../components/CommentArea";
 import { Form, Container, Row, Col } from "react-bootstrap";
 
 class BookList extends React.Component {
   state = {
     booklist: this.props.arr,
+    selectedBook:{}
   };
 
   filterBookList = (input) => {
@@ -14,6 +16,12 @@ class BookList extends React.Component {
       ),
     });
   };
+
+  handleSelection=(item)=>{
+    this.setState({
+      selectedBook:item
+    })
+  }
 
   render() {
     return (
@@ -33,9 +41,12 @@ class BookList extends React.Component {
             </Col>
           </Row>
           <Row>
+          <Col md={9}>
             {this.state.booklist.map((item) => (
-              <SingleBook book={item} key={item.asin} />
+              <SingleBook book={item} key={item.asin} onClick={() => this.handleSelection(item)} />
             ))}
+            </Col>
+            <Col md={3} elementId={this.state.selectedBook.asin}><CommentArea/></Col>
           </Row>
         </Container>
       </>

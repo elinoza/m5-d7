@@ -5,14 +5,17 @@ import {Spinner,ListGroup } from 'react-bootstrap'
 class CommentList extends React.Component {
     state = {
         comments: [],
-        loading:false,
+        loading:true,
         
     }
 
+    componentDidMount = async () => {
+       
+        this.fetchComments()
+    }
 
 
-
-    componentDidMount= async () => {
+    fetchComments= async () => {
       
        
         try {
@@ -44,6 +47,13 @@ class CommentList extends React.Component {
           
         }
     }
+
+    componentDidUpdate = (previousProps) => {
+   
+        if (previousProps.elementId!== this.props.elementId) { 
+            this.fetchComments()
+        }
+    }
     
 
     render() {
@@ -54,7 +64,7 @@ class CommentList extends React.Component {
                 {
                     this.state.loading && (
                         <div className="font-bold d-flex justify-content-center">
-                            <span>Feching reservations</span>
+                            <span>LOADING COMMENTS</span>
                             <Spinner animation="border" variant="success" />
                         </div>
                     )

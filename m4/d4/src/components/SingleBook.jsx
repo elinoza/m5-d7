@@ -1,7 +1,7 @@
 import React from "react";
 import { Card} from "react-bootstrap";
 import "./SingleBook.css";
-import AddComment from "./AddComment.jsx"
+import CommentArea from "./CommentArea.jsx"
 import CommentsList from "./CommentsList.jsx"
 
 class SingleBook extends React.Component {
@@ -20,18 +20,18 @@ class SingleBook extends React.Component {
   render() {
     return (
       <>
-       {
+       {/* {
                     this.state.selected && (
                       
-                        <CommentsList elementId={this.props.book.asin}/>
+                        <CommentArea elementId={this.props.book.asin}/>
                     )
-       }
-       {
+       } */}
+       {/* {
                     this.state.selected && (
                         <AddComment elementId={this.props.book.asin}/>
                        
                     )
-                }
+                } */}
       
       <Card
         onClick={() => this.toggleSelected()}
