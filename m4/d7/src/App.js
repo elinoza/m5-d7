@@ -5,6 +5,7 @@ import './style.css';
 import Gallery from './components/Gallery'
 import Gallery2 from './components/Gallery2'
 import MovieDetails from './components/MovieDetails'
+import TVShows from './components/TVShows'
 
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
@@ -21,8 +22,17 @@ class App extends React.Component {
       
       <Route path ="/" exact render={(
               props // props are history, location, match
-            ) => <Gallery2 search="" type="" {...props}/> } />
-      <Route path="/details/:id" component={MovieDetails} />
+            ) => <Gallery2 search="fast and furious" type=" movie" {...props}/> } />
+      <Route path ="/" exact render={(
+              props // props are history, location, match
+            ) => <Gallery2 search="Harry Potter" type=" movie" {...props}/> } />
+     <Route path ="/" exact render={(
+              props // props are history, location, match
+            ) => <Gallery2 search="office" type=" series" {...props}/> } />
+      <Route path="/details/:id" exact render={(
+        props)=><MovieDetails title=" Movie Details"{...props}/>
+      } />
+      <Route path ="/TVShows" exact render={(props)=><TVShows search='series' type='series'  {...props}/>}/>
             
      
       </Router>

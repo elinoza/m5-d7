@@ -67,23 +67,14 @@ class MyNavBar extends React.Component {
 						<div className={this. props.location.pathname === '/' ? 'nav-link active' : 'nav-link'}>Home</div>
 						</Link>
 						<Link to="/details"> 
-						<div className= {this.props.location.pathname === 'details'? 'nav-link active': 'nav-link'}>Details</div>
+						<div className= {this.props.location.pathname === '/details'? 'nav-link active': 'nav-link'}>Details</div>
+						</Link>
+						<Link to ="/TVShows">
+
+							<div className={this.props.location.name === '/TVShows'?  'nav-link active': 'nav-link'} >TV Shows</div>
 						</Link>
 							
-							
-							<NavDropdown title="Dropdown" id="basic-nav-dropdown">
-								<NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-								<NavDropdown.Item href="#action/3.2">
-									Another action
-								</NavDropdown.Item>
-								<NavDropdown.Item href="#action/3.3">
-									Something
-								</NavDropdown.Item>
-								<NavDropdown.Divider />
-								<NavDropdown.Item href="#action/3.4">
-									Separated link
-								</NavDropdown.Item>
-							</NavDropdown>
+						
 						</Nav>
 						<Form inline>
 							<FormControl

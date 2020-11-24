@@ -6,8 +6,8 @@ import { Card, Row, Container, Spinner } from "react-bootstrap";
 class Gallery2 extends React.Component {
   state = {
     movies: [],
-    search: "fast furious",
-    type: "movie",
+    search:"",
+    type:"",
     loading: true,
   };
 
@@ -15,13 +15,13 @@ class Gallery2 extends React.Component {
     try {
       let response = await fetch(
         "http://www.omdbapi.com/?&s=" +
-          this.state.search +
+          this.props.search +
           "&apikey=ee4589ef&type=" +
-          this.state.type
+          this.props.type
       );
       let movies = await response.json();
       console.log(movies)
-      this.setState({ movies: movies.Search, loading: false });
+      this.setState({ movies: movies.Search,search:this.props.search,type:this.props.type, loading: false });
     } catch (error) {
       console.log(error);
       this.setState({ loading: false });
@@ -30,6 +30,8 @@ class Gallery2 extends React.Component {
 
 
   render() {
+   
+  
     return (
       <Container fluid>
         {this.state.loading && (
@@ -39,13 +41,15 @@ class Gallery2 extends React.Component {
           </div>
         )}
         <h1 style={{ marginLeft: 85 }}>{this.state.search}</h1>
-        <Carousel itemsToShow={5}>
+        <Carousel itemsToShow={4}>
           {this.state.movies.map((movie, index) => (
+            
            
            
-            <Row> key={index}
+            <Row key={index}>
               <Card
                 className="d-flex justify-content-center mt-2 mb-5"
+                style={{ width:"28rem"}}
                 md={4}
                 lg={3}
                 onClick={() => this.props.history.push('/details/' + movie.imdbID)}
