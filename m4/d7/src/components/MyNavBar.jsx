@@ -73,6 +73,11 @@ class MyNavBar extends React.Component {
 
 							<div className={this.props.location.name === '/TVShows'?  'nav-link active': 'nav-link'} >TV Shows</div>
 						</Link>
+						<Button   variant="danger " className="btn btn-sm " onClick ={ () => {this.props.history.push('/register')}}>
+						Register
+						
+						
+						</Button>
 							
 						
 						</Nav>

@@ -21,7 +21,11 @@ class Gallery2 extends React.Component {
       );
       let movies = await response.json();
       console.log(movies)
-      this.setState({ movies: movies.Search,search:this.props.search,type:this.props.type, loading: false });
+      this.setState({ 
+        movies: movies.Search,
+        search:this.props.search,
+        type:this.props.type, 
+        loading: false });
     } catch (error) {
       console.log(error);
       this.setState({ loading: false });

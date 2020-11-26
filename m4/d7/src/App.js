@@ -6,6 +6,7 @@ import Gallery from './components/Gallery'
 import Gallery2 from './components/Gallery2'
 import MovieDetails from './components/MovieDetails'
 import TVShows from './components/TVShows'
+import Register from './components/Register'
 
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
@@ -33,6 +34,7 @@ class App extends React.Component {
         props)=><MovieDetails title=" Movie Details"{...props}/>
       } />
       <Route path ="/TVShows" exact render={(props)=><TVShows search='series' type='series'  {...props}/>}/>
+      <Route path="/register" exact render={(props)=><Register {...props} />}/>
             
      
       </Router>
