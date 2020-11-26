@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Form, Button,Col} from 'react-bootstrap'
+import { Container, Form, Button,Col,Alert} from 'react-bootstrap'
 
 
 
@@ -15,13 +15,22 @@ class Register extends React.Component {
         adress2:'',
         zip:'',
         date:''
-    }
+    },
+
+    errMessage:''
     }
 
-    submitForm=()=> {
+    submitForm=(e)=> {
+        e.preventDefault()
+
+        let nameLength= this.state.register.name.split("")
         
-        console.log('submit')
+        if(nameLength.length < 2 ){ this.setState({errMessage:'You should add name grater than 2 chars'})}
+
+       
     }
+
+    
 
     updateField=(e)=>{
         let register= {...this.state.register}
@@ -39,32 +48,34 @@ class Register extends React.Component {
     render() {
         return (
             <Container >
+                
              <Form className="px-5 mt-5" onSubmit={this.submitForm}>
              <Form.Row>
-                <Form.Group  as={Col}  required>
+                <Form.Group  as={Col}  >
                     <Form.Label>Name</Form.Label>
-                    <Form.Control id="name" type="text"  value={this.state.register.name} onChange={this.updateField} placeholder="Enter Name" />
+                    {this.state.errMessage && <Alert variant="danger" >Please add name more than 2 chars</Alert>}
+                    <Form.Control id="name" type="text"  value={this.state.register.name} onChange={this.updateField} placeholder="Enter Name"  required/>
                     
                 </Form.Group>
-                <Form.Group  as={Col} id="formBasicSurnamme" required>
+                <Form.Group  as={Col} >
                     <Form.Label>Surname</Form.Label>
-                    <Form.Control type="text"  value={this.state.register.surname} onChange={this.updateField} placeholder="Enter surname" />                   
+                    <Form.Control  id="surname" type="text"  value={this.state.register.surname} onChange={this.updateField} placeholder="Enter surname" reqired/>                   
                 </Form.Group>
                 </Form.Row>
 
                 <Form.Row>
-                <Form.Group as={Col} id="formGridEmail">
+                <Form.Group as={Col} >
                 <Form.Label>Email</Form.Label>
-                <Form.Control type="email"  value={this.state.register.email} p onChange={this.updateField}laceholder="Enter email" />
+                <Form.Control id="email" type="email"  value={this.state.register.email}  onChange={this.updateField} placeholder="Enter email" required />
                 </Form.Group>
 
-                <Form.Group as={Col} id="formGridPassword">
+                <Form.Group as={Col} >
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password"  value={this.state.register.password onChange={this.updateField}} placeholder="Password" />
+                <Form.Control id="password" type="password"  value={this.state.register.password} onChange={this.updateField} placeholder="Password" />
                 </Form.Group>
             </Form.Row>
 
-            <Form.Group id="formGridAddress1">
+            <Form.Group >
                 <Form.Label>Address</Form.Label>
                 <Form.Control  id="adress1"value={this.state.register.adress1} onChange={this.updateField} placeholder="1234 Main St" />
             </Form.Group>
@@ -77,7 +88,13 @@ class Register extends React.Component {
             <Form.Row>
                 <Form.Group as={Col} >
                 <Form.Label htmlFor="city" >City</Form.Label>
-                <Form.Control  id="city" type="text"  value={this.state.register.adress2} onChange={this.updateField} />
+                <Form.Control  id="city" type="text"  value={this.state.register.city} onChange={this.updateField} />
+                </Form.Group>
+                
+
+                <Form.Group as={Col} >
+                <Form.Label>Zip</Form.Label>
+                <Form.Control  id="zip" />
                 </Form.Group>
                 <Form.Group>
                                 <Form.Label htmlFor="date">Date of Birth</Form.Label>
@@ -88,7 +105,7 @@ class Register extends React.Component {
                                     placeholder="Date of your birth"
                                     value={this.state.register.date}
                                     onChange={this.updateField}
-                                    required
+                                    
                                 />
                             </Form.Group>
               
@@ -97,7 +114,7 @@ class Register extends React.Component {
 
             
 
-            <Button variant="primary" type="submit" >
+            <Button variant="danger" type="submit" >
                 Submit
             </Button>
 </Form>
