@@ -11,7 +11,7 @@ class NavBar extends React.Component{
 
   
   render(){
-    console.log("hello I m from navbar it now starts to render")
+    console.log("hello it now start")
     return (
       <div>
         <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">

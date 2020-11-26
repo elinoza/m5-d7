@@ -33,7 +33,7 @@ class ReservationForm extends React.Component {
         e.preventDefault();
         this.setState({ loading: true })
         try {
-            let response = await fetch('https://striveschool.herokuapp.com/api/reservatio',
+            let response = await fetch('https://striveschool.herokuapp.com/api/reservation',
                 {
                     method: 'POST',
                     body: JSON.stringify(this.state.reservation),

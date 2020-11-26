@@ -34,7 +34,7 @@ class App extends React.Component {
         
             render={(
               props
-            ) => <Reservations header="Im passed here from props"  />} 
+            ) => <Reservations header="Im passed here as props"  />} 
           />
           <Route path="/details/:stefano" component={DishDetails} />
 
