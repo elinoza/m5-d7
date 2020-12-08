@@ -1,18 +1,18 @@
 /*
 
-1. get all users on url --> localhost:3001/users/
-2. get single user on url --> localhost:3001/users/:id
-3. create a single user --> localhost:3001/users
-4. modify a single user --> localhost:3001/users/:id
-5. delete a single user --> localhost:3001/users/:id
+1. get all users on url --> localhost:3002/students
+2. get single user on url --> localhost:3002/students:id
+3. create a single user --> localhost:3002/students
+4. modify a single user --> localhost:3002/students:id
+5. delete a single user --> localhost:3002/students:id
 
-All the routes in this file will have the /users/ prefix
+All the routes in this file will have the /students prefix
 */
 
 const express = require("express") // third party module
 const fs = require("fs") // core module
 const path = require("path") // core module
- //const uniqid = require("uniqid") // third party module
+ const uniqid = require("uniqid") // third party module
 
 const router = express.Router()
 
@@ -64,7 +64,7 @@ router.get("/:identifier", (req, res) => {
 
   // 3. router.post("/")
 
-router.post("/", (req, res) => {
+    router.post("/", (req, res) => {
     // handler
   
     // 1. read the old content from the file
@@ -79,15 +79,15 @@ router.post("/", (req, res) => {
   
     const newUser = req.body
     newUser.ID = uniqid()
-    console.log(newUser)
     usersArray.push(newUser)
-    console.log(usersArray)
+    console.log(newUser)
   
     // 3. replace old content in the file with new array
   
     fs.writeFileSync(usersFilePath, JSON.stringify(usersArray))
   
-    res.status(200).send({ id: newUser.ID })
+    res.send({ id: newUser.ID })
+    //res.send("succesfull")
   })
 
 })
