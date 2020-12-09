@@ -14,7 +14,6 @@ const readFile = fileName => {
 // FOR GETTING ALL PROJECTS
 router.get("/", (req, res) => {
   const projectsDB = readFile("projects.json")
-  
   res.send(projectsDB)
 })
 /// getting project with an id
