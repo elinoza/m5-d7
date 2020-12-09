@@ -18,6 +18,12 @@ const notFoundHandler = (err, req, res, next) => {
     }
     next(err)
   }
+  const BadRequestHandler= (err, req, res, next) => {
+    if (err.httpStatusCode === 400) {
+      res.status(400).send(err)
+    }
+    next(err)
+  }
   
   const catchAllHandler = (err, req, res, next) => {
     if (!res.headersSent) {
@@ -29,5 +35,7 @@ const notFoundHandler = (err, req, res, next) => {
     notFoundHandler,
     unauthorizedHandler,
     forbiddenHandler,
+    BadRequestHandler,
+
     catchAllHandler,
   }

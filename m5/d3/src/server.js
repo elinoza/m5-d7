@@ -8,6 +8,7 @@ const {
   notFoundHandler,
   unauthorizedHandler,
   forbiddenHandler,
+  BadRequestHandler,
   catchAllHandler,
 } = require("./errorHandling")
 
@@ -34,6 +35,7 @@ server.use("/problems", problematicRoutes)
 server.use(notFoundHandler)
 server.use(unauthorizedHandler)
 server.use(forbiddenHandler)
+server.use(BadRequestHandler)
 server.use(catchAllHandler)
 
 

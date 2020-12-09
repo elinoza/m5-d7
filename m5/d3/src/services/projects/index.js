@@ -20,7 +20,7 @@ router.get("/", (req, res) => {
 /// getting project with an id
 
 
-  router.get("/:id", (req, res) => {
+  router.get("/:id", (req, res,next) => {
     try{
   const projectsDB = readFile("projects.json")
   const project= projectsDB.filter(project=> String(project.ID) === req.params.id)
@@ -36,7 +36,7 @@ router.get("/", (req, res) => {
   }
 })
 /// getting project with specific query (ask luis aboout it??)
-router.get("/", (req, res) => {
+router.get("/", (req, res,next) => {
   try{ 
       const projectsDB = readFile("projects.json")
       if (req.query && req.query.name) {
@@ -77,33 +77,43 @@ router.post("/",
     .exists() ///What does this mean???
     .withMessage("add your student Id!"),
 ],
-(req, res) => {
-  const projectsDB = readFile("projects.json")
-  const newProject = {
-    ...req.body,
-    ID: uniqid(),
-    modifiedAt: new Date(),
-  }
-
-  projectsDB.push(newProject)
-//  replace old content in the file with new array
-  fs.writeFileSync(path.join(__dirname, "projects.json"), JSON.stringify(projectsDB))
-
-  res.status(201).send({ id: newProject.ID })
-})
-
-//deleting by id
-router.delete("/:id", (req, res) => {
-  const projectsDB = readFile("projects.json")
-  const project = projectsDB.filter(project => String(project.ID) !== req.params.id)
-  fs.writeFileSync(path.join(__dirname, "projects.json"), JSON.stringify(project))
-
-  res.status(204).send()
+(req, res, next) => {
+      try{
+       
+          const errors = validationResult(req)
+    
+          if (!errors.isEmpty()) {
+            const err = new Error()
+            err.message = errors
+            err.httpStatusCode = 400
+            next(err)
+          } else {
+            const projectsDB = readFile("projects.json")
+            const newproject = {
+              ...req.body,
+              ID: uniqid(),
+              modifiedAt: new Date(),
+            }
+    
+            projectsDB.push(newproject)
+    
+            fs.writeFileSync(
+              path.join(__dirname, "projects.json"),
+              JSON.stringify(projectsDB)
+            )
+    
+            res.status(201).send({ id: newproject.ID })
+          }
+        } 
+        
+    catch(error){next(error)
+    }
+  
 })
 
 ///EDITIN' BY ID
-router.put("/:id", (req, res) => {
-  const projectsDB = readFile("projects.json")
+router.put("/:id", (req, res, next) => {
+  try{const projectsDB = readFile("projects.json")
   const project = projectsDB.filter(project => String(project.ID) !== req.params.id)
 
   const modifiedUser = {
@@ -115,7 +125,24 @@ router.put("/:id", (req, res) => {
   project.push(modifiedUser)
   fs.writeFileSync(path.join(__dirname, "projects.json"), JSON.stringify(project))
 
-  res.send({ id: modifiedUser.ID })
+  res.send({ id: modifiedUser.ID })}
+  catch(error){
+    next(error)
+  }
+  
 })
+
+router.delete("/:id", (req, res, next) => {
+  try {
+    const projectsDB = readFile("projects.json")
+    const newDb = projectsDB.filter(project => project.ID !== req.params.id)
+    fs.writeFileSync(path.join(__dirname, "projects.json"), JSON.stringify(newDb))
+
+    res.status(204).send()
+  } catch (error) {
+    next(error)
+  }
+})
+
 
 module.exports = router
