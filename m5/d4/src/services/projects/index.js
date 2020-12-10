@@ -21,8 +21,6 @@ router.get("/", async(req, res,next) => {
   catch(error){next(error)}
 })
 /// getting project with an id
-
-
   router.get("/:id", async (req, res,next) => {
     try{
   const projectsDB = await readDB(usersFilePath )
@@ -44,7 +42,7 @@ router.get("/", async(req, res,next) => {
 router.post("/:id/uploadPhoto", upload.single("image"), async (req, res,next) => {
   try{
     await writeFile(
-      path.join(studentsFolderPath, req.file.originalname),
+      path.join(studentsFolderPath, req.params.id + ".jpg"),
       req.file.buffer
       )
       res.send("ok")
@@ -56,9 +54,7 @@ catch(error){
 })
 
 
-
-
-/// getting project with specific query (ask luis aboout it??)
+/// getting project with specific query 
 router.get("/", async(req, res,next) => {
   try{ 
       const projectsDB =  await readDB(usersFilePath )
