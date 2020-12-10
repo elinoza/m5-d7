@@ -1,13 +1,17 @@
 const express = require("express")
+const multer = require("multer")
 const fs = require("fs")
+const { writeFile, createReadStream } = require("fs-extra")
 const path = require("path")
 const uniqid = require("uniqid")
 const { readDB, writeDB } = require("../../lib/utilities")
 const { check, validationResult } = require("express-validator")
+const upload = multer({})
 
 const router = express.Router()
+const studentsFolderPath = path.join(__dirname, "../../public/img/projects")
 
-const usersFilePath = path.join(__dirname, "users.json")
+const usersFilePath = path.join(__dirname, "projects.json")
 
 // FOR GETTING ALL PROJECTS
 router.get("/", async(req, res,next) => {
@@ -34,6 +38,26 @@ router.get("/", async(req, res,next) => {
     next(error)
   }
 })
+
+/// uploading image by id
+
+router.post("/:id/uploadPhoto", upload.single("image"), async (req, res,next) => {
+  try{
+    await writeFile(
+      path.join(studentsFolderPath, req.file.originalname),
+      req.file.buffer
+      )
+      res.send("ok")
+}
+catch(error){
+  console.log(error)
+  next(error)
+}
+})
+
+
+
+
 /// getting project with specific query (ask luis aboout it??)
 router.get("/", async(req, res,next) => {
   try{ 
