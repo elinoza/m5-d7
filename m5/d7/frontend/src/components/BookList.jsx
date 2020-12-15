@@ -1,6 +1,7 @@
 import React from "react";
 import SingleBook from "./SingleBook";
-import CommentArea from "../components/CommentArea";
+import AddComment from "../components/AddComment";
+import CommentsList from "../components/CommentsList";
 import { Form, Container, Row, Col } from "react-bootstrap";
 
 class BookList extends React.Component {
@@ -63,7 +64,9 @@ componentDidMount= async()=>{
             ))}
              </Row>
             </Col>
-            {/* <Col md={3} elementId={this.state.selectedBook.asin}><CommentArea/></Col> */}
+            <Col md={3} >
+             <AddComment elementId={this.state.selectedBook.asin} /> 
+             <CommentsList elementId={this.state.selectedBook.asin} /> </Col>
           </Row>
         </Container>
       </>

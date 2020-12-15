@@ -4,10 +4,9 @@ import { Alert, Button, Col, Form, Row, Spinner } from 'react-bootstrap'
 class AddComment extends React.Component {
     state = {
         comments:{
-            comment: '',
-            rate: '5',
-            elementId:''
-           
+            text: '',
+            userName: '',
+          
         },
         
         errMessage: '',
@@ -18,7 +17,7 @@ class AddComment extends React.Component {
         let comments = { ...this.state.comments } // creating a copy of the current state
         let currentId = e.currentTarget.id // 'name', 'phone', etc.
      
-        comments.elementId=this.props.elementId
+        // comments.elementId=this.props.elementId
 
      
             comments[currentId] = e.currentTarget.value // e.currentTarget.value is the keystroke
@@ -32,23 +31,21 @@ class AddComment extends React.Component {
         e.preventDefault();
         this.setState({ loading: true })
         try {
-            let response = await fetch('  https://striveschool-api.herokuapp.com/api/comments/',
+            let response = await fetch(`http://localhost:3001/books/${this.props.elementId}/comments`,
                 {
                     method: 'POST',
                     body: JSON.stringify(this.state.comments),
                     headers: new Headers({
-                        "Content-Type": "application/json",
-                        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmI2OGE2Njk4MzViMDAwMTc1ODRmMzYiLCJpYXQiOjE2MDU3OTg1MDIsImV4cCI6MTYwNzAwODEwMn0._FsEOZBI398ZuFgH3BLEbni2McUPv6s7QSmxC2-ee8w"
+                        "Content-Type": "application/json"
+                       
                     })
                 })
             if (response.ok) {
                 alert('Comment saved!')
                 this.setState({
                     comments: {
-                        
-                            comment: '',
-                            rate: '5',
-                          
+                        text: '',
+                        userName: '',
                         
                     },
                     errMessage: '',
@@ -85,7 +82,7 @@ class AddComment extends React.Component {
                 {
                     this.state.loading && (
                         <div className="d-flex justify-content-center my-5">
-                            Reserving your table, please wait
+                            pls wait
                             <div className="ml-2">
                                 <Spinner animation="border" variant="success" />
                             </div>
@@ -94,15 +91,15 @@ class AddComment extends React.Component {
                 }
                 <Form className="w-100 mb-3 mt-3 container" onSubmit={this.submitComment}>
                     <Row>
-                        <Col md={9}>
+                        <Col md={7}>
                             <Form.Group>
-                                <Form.Label htmlFor="comment">Comment</Form.Label>
+                                <Form.Label htmlFor="text">text</Form.Label>
                                 <Form.Control
                                     type="text"
-                                    name="comment"
-                                    id="comment"
+                                    name="text"
+                                    id="text"
                                     placeholder="Your comment here"
-                                    value={this.state.comments.comment}
+                                    value={this.state.comments.text}
                                     onChange={this.updateCommentField}
                                     required
                                 />
@@ -111,24 +108,21 @@ class AddComment extends React.Component {
                         
                   
                    
-                        <Col md={3}>
+                        <Col md={5}>
                             <Form.Group>
-                                <Form.Label htmlFor="rate">
-                                    Rate from 1 to 5 !
+                                <Form.Label htmlFor="userName">
+                                  Your User Name pls
                             </Form.Label>
                                 <Form.Control
-                                    as="select"
-                                    name="rate"
-                                    id="rate"
-                                    value={this.state.comments.rate}
+                                  type="text"
+                                    name="userName"
+                                    id="userName"
+                                    placeholder="Your user name here"
+                                    value={this.state.comments.userName}
                                     onChange={this.updateCommentField}
+                                    required
                                 >
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                
+                                   
                                 </Form.Control>
                             </Form.Group>
                         </Col>

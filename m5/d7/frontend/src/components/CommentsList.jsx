@@ -19,15 +19,8 @@ class CommentList extends React.Component {
       
        
         try {
-            let response = await fetch('  https://striveschool-api.herokuapp.com/api/comments/' + this.props.elementId,
-                {
-                    method: 'GET',
+            let response = await fetch(`http://localhost:3001/books/${this.props.elementId}/comments`)
                 
-                    headers: new Headers({
-                       
-                        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmI2OGE2Njk4MzViMDAwMTc1ODRmMzYiLCJpYXQiOjE2MDU3OTg1MDIsImV4cCI6MTYwNzAwODEwMn0._FsEOZBI398ZuFgH3BLEbni2McUPv6s7QSmxC2-ee8w"
-                    })
-                })
             if (response.ok) {
              
                 let body= await  response.json()
@@ -72,8 +65,8 @@ class CommentList extends React.Component {
               {this.state.comments.map((comments, index) => (
                     <ListGroup key={index}>
                         <ListGroup.Item>
-                            Comment: {comments.comment}, Rate{comments.rate}
-                            {console.log(comments.comment)}
+                            Comment: {comments.text}, User:{comments.userName}
+                            {console.log(comments.text)}
                             
                         </ListGroup.Item>
                     </ListGroup>
