@@ -94,7 +94,7 @@ booksRouter.put("/:asin", async (req, res, next) => {
 
     if (bookIndex !== -1) {
       // book found
-      const updatedBooks = [
+      const modifiedBooks = [
         ...books.slice(0, bookIndex),
         { ...books[bookIndex], ...validatedData },
         ...books.slice(bookIndex + 1),
@@ -179,6 +179,34 @@ booksRouter.get("/:asin/comments", async (req, res, next) => {
       err.httpStatusCode = 404
       next(err)
     }
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+})
+
+booksRouter.delete("/:asin/comments/:commentId", async (req, res, next) => {
+  try {
+    const books = await getBooks()
+
+    const bookIndex = books.findIndex(
+      book => book.asin === req.params.asin
+    )
+
+    if (bookIndex !== -1) {
+      let modifiedComments = books[bookIndex].comments.filter(
+        (comment) => comment.CommentID !== req.params.commentID
+      ); 
+
+      books[bookIndex].comments = modifiedComments; 
+
+      await writeBooks(books);
+      res.send(books);
+    } else {
+      const error = new Error();
+      error.httpStatusCode = 404;
+      next(error);}
+   
   } catch (error) {
     console.log(error)
     next(error)
