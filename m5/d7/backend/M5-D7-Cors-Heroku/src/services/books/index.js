@@ -1,8 +1,19 @@
 const express = require("express")
+const { check, validationResult } = require("express-validator")
+const uniqid = require("uniqid")
 
 const { getBooks, writeBooks } = require("../../fsUtilities")
 
 const booksRouter = express.Router()
+
+// const commentsValidation = [
+//   check("userName").exists().withMessage("userName is required!"),
+//   check("text").exists().withMessage("text is required!"),
+// ]
+const booksValidation = [
+  check("asin").exists().withMessage("asin is required!"),
+  check("title").exists().withMessage("title is required!"),
+]
 
 booksRouter.get("/", async (req, res, next) => {
   try {
@@ -43,7 +54,7 @@ booksRouter.get("/:asin", async (req, res, next) => {
   }
 })
 
-booksRouter.post("/", async (req, res, next) => {
+booksRouter.post("/", booksValidation, async (req, res, next) => {
   try {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
@@ -62,7 +73,7 @@ booksRouter.post("/", async (req, res, next) => {
         error.message = "Book already in db"
         next(error)
       } else {
-        books.push(req.body)
+        books.push({...req.body,comments:[]})
         await writeBooks(books)
         res.status(201).send({ asin: req.body.asin })
       }
@@ -123,5 +134,58 @@ booksRouter.delete("/:asin", async (req, res, next) => {
     next(error)
   }
 })
+
+booksRouter.post("/:asin/comments", async (req, res, next) => {
+  try {
+    // const errors = validationResult(req)
+    
+    // if (!errors.isEmpty()) {
+    //   const error = new Error()
+    //   error.message = errors
+    //   error.httpStatusCode = 400
+    //   next(error)
+    // } else {
+      const books = await getBooks()
+
+    const bookFound = books.find(book => book.asin === req.params.asin)
+
+      if (bookFound) {
+        bookFound.comments.push({...req.body,Date:new Date(),
+          CommentID: uniqid()})
+        await writeBooks(books)
+        res.status(201).send({ bookFound})
+        
+       } 
+      else {
+        console.log("no in db")
+      }
+    // }
+  } catch (error) {
+    console.log(error)
+    const err = new Error("An error occurred while reading from the file")
+    next(err)
+  }
+})
+booksRouter.get("/:asin/comments", async (req, res, next) => {
+  try {
+    const books = await getBooks()
+
+    const bookFound = books.find(book => book.asin === req.params.asin)
+
+    if (bookFound) {
+      res.send(bookFound.comments)
+    } else {
+      const err = new Error()
+      err.httpStatusCode = 404
+      next(err)
+    }
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+})
+
+
+
 
 module.exports = booksRouter
