@@ -28,12 +28,11 @@ const corsOptions = {
       callback(null, true)
     } else {
       // Not allowed
-      callback(new Error("NOT ALLOWED - CORS ISSUES"))
+      callback(new Error("NOT ALLOWED - CORS ISSUES"),false)
     }
   },
 }
 server.use(cors(corsOptions)) // CROSS ORIGIN RESOURCE SHARING
-// server.use(cors())
 //ROUTES
 
 server.use("/books", booksRoutes)
